@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quorix on Google Sites</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body { font-family: sans-serif; }
+      #chat-output { min-height: 200px; padding: 10px; border: 1px solid #ddd; overflow-y: scroll; border-radius: 8px; margin-bottom: 10px; }
+      .user-message { text-align: right; color: #007bff; }
+      .bot-message { text-align: left; color: #333; }
+    </style>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-md mx-auto p-4 bg-white rounded-lg shadow-lg">
+        <h1 class="text-xl font-bold mb-4">Chat with Quorix</h1>
+        <div id="chat-output" class="bg-gray-50"></div>
+        <div class="flex">
+            <input type="text" id="user-input" class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none" placeholder="Message Quorix...">
+            <button onclick="sendMessage()" class="p-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 transition">Send</button>
+        </div>
+    </div>
+
+    <script src="https://js.puter.com/v2/"></script>
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const chatOutput = document.getElementById('chat-output');
+            const userMessage = userInput.value;
+
+            if (!userMessage) return;
+
+            chatOutput.innerHTML += `<p class="user-message">You: ${userMessage}</p>`;
+            userInput.value = '';
+
+            // *** This is the core part! ***
+            // Use puter.ai.chat and specify your Poe bot's handle as the model.
+            // Replace "YourPoeBotHandle" with your bot's name from Phase 1.
+            const aiResponse = await puter.ai.chat(userMessage, { model: "Quorix-2-Pro" });
+
+            chatOutput.innerHTML += `<p class="bot-message">Quorix: ${aiResponse.text}</p>`;
+        }
+    </script>
+</body>
+</html>
